@@ -51,22 +51,24 @@ $_listaVideo = $pdo->query('SELECT * FROM videos;')->fetchAll(PDO::FETCH_ASSOC);
 
     <ul class="videos__container" alt="videos alura">
         <?php foreach ($_listaVideo as $_video) : ?>
-                <?php if (str_starts_with($_video['url'],'http')):?>
+            <?php if (!str_starts_with($_video['url'],'http')){
+                $_video['url'] = 'https://www.youtube.com/embed/tsrEYsjGoH8?si=1QEP0IGxeHb5CjrH';
+            }
+            ?>
         <li class="videos__item">
-            <iframe width="100%" height="72%" src="<?php echo $_video['url'];?>"
+            <iframe width="100%" height="72%" src="<?= $_video['url']; ?>"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
             <div class="descricao-video">
                 <img src="./img/logo.png" alt="logo canal alura">
-                <h3><?php echo $_video['title'];?></h3>
+                <h3><?= $_video['title']; ?></h3>
                 <div class="acoes-video">
                     <a href="./pages/enviar-video.html">Editar</a>
-                    <a href="./pages/enviar-video.html">Excluir</a>
+                    <a href="./remover_video.php?id=<?= $_video['id'] ?>">Excluir</a>
                 </div>
             </div>
         </li>
-            <?php endif; ?>
         <?php endforeach; ?>
     </ul>
 </body>
