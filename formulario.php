@@ -50,7 +50,7 @@ if($_id !== false){
 
     <main class="container">
 
-        <form class="container__formulario" action=" <?php $_id !== false ? '/editar_video.php?id=' . $_id : '/novo_video.php'?>" method="post">
+        <form class="container__formulario" action=" <?= $_id !== false ? '/editar_video.php?id=' . $_id : '/novo_video.php'?>" method="post">
             <h2 class="formulario__titulo">Envie um vídeo!</h2>
                 <div class="formulario__campo">
                     <label class="campo__etiqueta" for="url">Link embed</label>

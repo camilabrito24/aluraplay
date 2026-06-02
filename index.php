@@ -2,9 +2,11 @@
     <script>
         const status = "<?php echo $_GET['sucesso']; ?>";
         if (status === "1") {
-            alert("✅ Vídeo removido com sucesso!");
+            alert("🗑️ Vídeo removido com sucesso!");
         } else if (status === "2"){
-            alert("🚀 Vídeo cadastrado com sucesso!");
+            alert("✅ Vídeo cadastrado com sucesso!");
+        } else if (status === "3"){
+            alert("🔃 Vídeo atualizado com sucesso!");
         } else {
             alert("❌ Ops! Algo deu errado na operação.");
         }
