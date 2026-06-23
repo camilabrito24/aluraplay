@@ -5,7 +5,7 @@ $pdo =  new PDO("sqlite:$_caminho");
 
 $_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($_id === false){
-    header('Location: index.php?sucesso=0');
+    header('Location: /?sucesso=0');
     exit();
 }
 
@@ -13,7 +13,7 @@ $_url = filter_input(INPUT_POST,'url',FILTER_VALIDATE_URL);
 $_titulo = filter_input(INPUT_POST,'titulo');
 
 if($_url === false || $_titulo === false) {
-    header('Location: /index.php?sucesso=0');
+    header('Location: /?sucesso=0');
     exit();
 }
 
@@ -24,7 +24,7 @@ $_statement->bindValue(':title', $_titulo);
 $_statement->bindValue(':id', $_id, PDO::PARAM_INT);
 
 if($_statement->execute() === false){
-    header('Location: index.php?sucesso=0');
+    header('Location: /?sucesso=0');
 } else {
-    header('Location: index.php?sucesso=3');
+    header('Location: /?sucesso=3');
 }

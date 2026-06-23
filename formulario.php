@@ -38,10 +38,10 @@ if($_id !== false){
     <header>
 
         <nav class="cabecalho">
-            <a class="logo" href="index.php"></a>
+            <a class="logo" href="listagem_videos.php"></a>
 
             <div class="cabecalho__icones">
-                <a href="pages/enviar-video.html" class="cabecalho__videos"></a>
+                <a href=/novo_video" class="cabecalho__videos"></a>
                 <a href="pages/login.html" class="cabecalho__sair">Sair</a>
             </div>
         </nav>
@@ -50,7 +50,7 @@ if($_id !== false){
 
     <main class="container">
 
-        <form class="container__formulario" action=" <?= $_id !== false ? '/editar_video.php?id=' . $_id : '/novo_video.php'?>" method="post">
+        <form class="container__formulario" method="post">
             <h2 class="formulario__titulo">Envie um vídeo!</h2>
                 <div class="formulario__campo">
                     <label class="campo__etiqueta" for="url">Link embed</label>

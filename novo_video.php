@@ -7,7 +7,7 @@ $_url = filter_input(INPUT_POST,'url',FILTER_VALIDATE_URL);
 $_titulo = filter_input(INPUT_POST,'titulo');
 
 if($_url === false || $_titulo === false) {
-    header('Location: /index.php?sucesso=0');
+    header('Location: /?sucesso=0');
     exit();
 }
 
@@ -17,7 +17,7 @@ $statement->bindValue(1, $_url);
 $statement->bindValue(2, $_titulo);
 
 if($statement->execute() === false){
-    header('Location: /index.php?sucesso=0');
+    header('Location: /?sucesso=0');
 } else {
-    header('Location: /index.php?sucesso=2');
+    header('Location: /?sucesso=2');
 }
