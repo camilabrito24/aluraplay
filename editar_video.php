@@ -1,29 +1,31 @@
 <?php
 
-$_caminho = __DIR__.'/banco.sqlite';
-$pdo =  new PDO("sqlite:$_caminho");
+use Alura\Mvc\Entity\Video;
 
-$_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-if ($_id === false){
+$dbPath = __DIR__.'/banco.sqlite';
+$pdo =  new PDO("sqlite:$dbPath");
+
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+if ($id === false && $id === null){
     header('Location: /?sucesso=0');
     exit();
 }
 
-$_url = filter_input(INPUT_POST,'url',FILTER_VALIDATE_URL);
-$_titulo = filter_input(INPUT_POST,'titulo');
+$url = filter_input(INPUT_POST,'url',FILTER_VALIDATE_URL);
+$title = filter_input(INPUT_POST,'titulo');
 
-if($_url === false || $_titulo === false) {
+if($url === false || $title === false) {
     header('Location: /?sucesso=0');
     exit();
 }
 
-$_sql = 'UPDATE videos SET url = :url, title = :title WHERE id = :id;';
-$_statement = $pdo->prepare($_sql);
-$_statement->bindValue(':url', $_url);
-$_statement->bindValue(':title', $_titulo);
-$_statement->bindValue(':id', $_id, PDO::PARAM_INT);
+$video = new Video($url,$title);
+$video->setId($id);
 
-if($_statement->execute() === false){
+$repository = new \Alura\Mvc\Repository\VideoRepository($pdo);
+$result = $repository->update($video);
+
+if($result === false){
     header('Location: /?sucesso=0');
 } else {
     header('Location: /?sucesso=3');

@@ -9,45 +9,15 @@ $_video =
         'title' => ''
     ];
 
-if($_id !== false){
+if($_id !== false && $_id !== null){
     $_statement = $pdo->prepare('SELECT * FROM videos WHERE id = ?;');
     $_statement->bindValue(1, $_id, PDO::PARAM_INT);
     $_statement->execute();
     $_video = $_statement->fetch(PDO::FETCH_ASSOC);
 }
+
+require_once 'inicio_html.php';
 ?>
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/estilos.css">
-    <link rel="stylesheet" href="css/estilos-form.css">
-    <link rel="stylesheet" href="css/flexbox.css">
-    <title>AluraPlay</title>
-    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
-</head>
-
-<body>
-
-    <!-- Cabecalho -->
-    <header>
-
-        <nav class="cabecalho">
-            <a class="logo" href="listagem_videos.php"></a>
-
-            <div class="cabecalho__icones">
-                <a href=/novo_video" class="cabecalho__videos"></a>
-                <a href="pages/login.html" class="cabecalho__sair">Sair</a>
-            </div>
-        </nav>
-
-    </header>
-
     <main class="container">
 
         <form class="container__formulario" method="post">
@@ -69,7 +39,4 @@ if($_id !== false){
         </form>
 
     </main>
-
-</body>
-
-</html>
+<?php require_once 'fim_html.php'?>

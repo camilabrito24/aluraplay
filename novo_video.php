@@ -1,22 +1,22 @@
 <?php
 
-$_caminho = __DIR__.'/banco.sqlite';
-$pdo =  new PDO("sqlite:$_caminho");
+use Alura\Mvc\Repository\VideoRepository;
 
-$_url = filter_input(INPUT_POST,'url',FILTER_VALIDATE_URL);
-$_titulo = filter_input(INPUT_POST,'titulo');
+$dbPath = __DIR__.'/banco.sqlite';
+$pdo =  new PDO("sqlite:$dbPath");
 
-if($_url === false || $_titulo === false) {
+$url = filter_input(INPUT_POST,'url',FILTER_VALIDATE_URL);
+$title = filter_input(INPUT_POST,'titulo');
+
+if($url === false || $title === false) {
     header('Location: /?sucesso=0');
     exit();
 }
 
-$sql = "INSERT INTO videos (url, title) VALUES(?, ?)";
-$statement = $pdo->prepare($sql);
-$statement->bindValue(1, $_url);
-$statement->bindValue(2, $_titulo);
+$repository = new VideoRepository($pdo);
+$result = $repository->add(new \Alura\Mvc\Entity\Video($url,$title));
 
-if($statement->execute() === false){
+if($result === false){
     header('Location: /?sucesso=0');
 } else {
     header('Location: /?sucesso=2');

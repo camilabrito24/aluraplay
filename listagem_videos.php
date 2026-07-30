@@ -17,62 +17,34 @@
 <?php endif; ?>
 <?php
 
-$_caminho = __DIR__.'/banco.sqlite';
-$pdo =  new PDO("sqlite:$_caminho");
-$_listaVideo = $pdo->query('SELECT * FROM videos;')->fetchAll(PDO::FETCH_ASSOC);
+$dbPath = __DIR__.'/banco.sqlite';
+$pdo =  new PDO("sqlite:$dbPath");
+$repository = new \Alura\Mvc\Repository\VideoRepository($pdo);
+$videoList = $repository->all();
 
-?><!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/estilos.css">
-    <link rel="stylesheet" href="./css/flexbox.css">
-    <title>AluraPlay</title>
-    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
-</head>
-
-<body>
-
-    <header>
-
-        <nav class="cabecalho">
-            <a class="logo" href="listagem_videos.php"></a>
-
-            <div class="cabecalho__icones">
-                <a href="/novo_video" class="cabecalho__videos"></a>
-                <a href="./pages/login.html" class="cabecalho__sair">Sair</a>
-            </div>
-        </nav>
-
-    </header>
-
+require_once 'inicio_html.php';
+?>
     <ul class="videos__container" alt="videos alura">
-        <?php foreach ($_listaVideo as $_video) : ?>
-            <?php if (!str_starts_with($_video['url'],'http')){
-                $_video['url'] = 'https://www.youtube.com/embed/tsrEYsjGoH8?si=1QEP0IGxeHb5CjrH';
+        <?php foreach ($videoList as $video) : ?>
+            <?php if (!str_starts_with($video->url,'http')){
+                $video['url'] = 'https://www.youtube.com/embed/tsrEYsjGoH8?si=1QEP0IGxeHb5CjrH';
             }
             ?>
         <li class="videos__item">
-            <iframe width="100%" height="72%" src="<?= $_video['url']; ?>"
+            <iframe width="100%" height="72%" src="<?= $video->url; ?>"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
             <div class="descricao-video">
-                <img src="./img/logo.png" alt="logo canal alura">
-                <h3><?= $_video['title']; ?></h3>
+                <img src="/img/logo.png" alt="logo canal alura">
+                <h3><?= $video->title; ?></h3>
                 <div class="acoes-video">
-                    <a href="/editar_video?id=<?= $_video['id']?>">Editar</a>
-                    <a href="/remover_video?id=<?= $_video['id']?>">Excluir</a>
+                    <a href="/editar_video?id=<?= $video->id?>">Editar</a>
+                    <a href="/remover_video?id=<?= $video->id?>">Excluir</a>
                 </div>
             </div>
         </li>
         <?php endforeach; ?>
     </ul>
-</body>
 
-</html>
+<?php require_once 'fim_html.php'?>
