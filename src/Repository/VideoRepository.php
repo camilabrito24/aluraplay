@@ -3,6 +3,7 @@
 namespace Alura\Mvc\Repository;
 
 use Alura\Mvc\Entity\Video;
+use PDO;
 
 class VideoRepository
 {
@@ -52,12 +53,25 @@ class VideoRepository
         $videoList = $this->pdo->query('SELECT * FROM videos;')->fetchAll(\PDO::FETCH_ASSOC);
 
         return array_map(
-            function (array $videoData){
-                $video = new Video($videoData['url'], $videoData['title']);
-                $video->setId($videoData['id']);
-                return $video;
-            },
+            $this->hydrateVideo(...),
             $videoList
         );
+    }
+
+    public function find(int $id)
+    {
+        $_statement = $this->pdo->prepare('SELECT * FROM videos WHERE id = ?;');
+        $_statement->bindValue(1, $id, PDO::PARAM_INT);
+        $_statement->execute();
+
+        return $this->hydrateVideo($_statement->fetch(PDO::FETCH_ASSOC));
+    }
+
+    public function hydrateVideo(array $videoData): Video
+    {
+        $video = new Video($videoData['url'], $videoData['title']);
+        $video->setId($videoData['id']);
+
+        return $video;
     }
 }
