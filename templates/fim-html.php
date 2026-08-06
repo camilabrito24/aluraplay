@@ -1,3 +1,3 @@
 </body>
-<script src="/js/FlashMessage.js"></script>
+<script src="/public/js/FlashMessage.js"></script>
 </html>
