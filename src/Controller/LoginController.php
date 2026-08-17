@@ -18,7 +18,7 @@ class LoginController implements Controller
 
 
         $userData = $this->userRepository->findUser($email);
-        $userPassword = $userData->password;
+        $userPassword = $userData->password ?? '';
         $correctPassword = password_verify($password, $userPassword);
 
         if($correctPassword){
