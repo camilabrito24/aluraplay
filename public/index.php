@@ -22,6 +22,12 @@ $routes = require_once __DIR__ . '/../config/routes.php';
 $pathInfo = $_SERVER["PATH_INFO"] ?? '/';
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
+session_start();
+if(!array_key_exists('logado', $_SESSION) && $pathInfo !== '/login'){
+    header('location: /login');
+    return;
+}
+
 if($pathInfo == '/login'){
     $repository = new UserRepository($pdo);
 } else {
