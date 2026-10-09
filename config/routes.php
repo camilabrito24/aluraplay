@@ -10,6 +10,6 @@ return [
     'POST|/editar_video'    => \Alura\Mvc\Controller\VideoUpdateController::class,
     'GET|/remover_video'    => \Alura\Mvc\Controller\VideoRemoveController::class,
     'GET|/login'            => \Alura\Mvc\Controller\LoginFormController::class,
-    'POST|/login'           => \Alura\Mvc\Controller\LoginController::class
-
+    'POST|/login'           => \Alura\Mvc\Controller\LoginController::class,
+    'GET|/logout'           => \Alura\Mvc\Controller\LogoutController::class,
 ];

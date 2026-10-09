@@ -7,7 +7,7 @@ class LoginFormController implements Controller
 
     public function processaRequisicao():void
     {
-        if($_SESSION['logado'] === true) {
+        if(isset($_SESSION['logado']) && $_SESSION['logado'] === true) {
             header('Location: /');
         }
 
