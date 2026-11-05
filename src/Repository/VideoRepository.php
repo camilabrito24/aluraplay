@@ -73,6 +73,9 @@ class VideoRepository
     {
         $video = new Video($videoData['url'], $videoData['title']);
         $video->setId($videoData['id']);
+        if($videoData['image_path'] != null){
+            $video->setFilePath($videoData['image_path']);
+        }
 
         return $video;
     }

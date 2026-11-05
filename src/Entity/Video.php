@@ -6,7 +6,7 @@ class Video
 {
     public readonly string $url;
     public readonly int $id;
-    private ?string $filePath;
+    private ?string $filePath = null;
     public function __construct(string $url, public readonly string $title)
     {
         $this->setUrl($url);
