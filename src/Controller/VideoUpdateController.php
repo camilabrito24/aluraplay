@@ -6,7 +6,7 @@ use Alura\Mvc\Repository\VideoRepository;
 use Alura\Mvc\Entity\Video;
 use finfo;
 
-class VideoUpdateController implements Controller
+readonly class VideoUpdateController implements Controller
 {
 
     public function __construct(private VideoRepository $videoRepository)
@@ -16,7 +16,7 @@ class VideoUpdateController implements Controller
     public function processaRequisicao(): void
     {
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-        if ($id === false && $id === null){
+        if ($id === false || $id === null){
             header('Location: /?sucesso=0');
             exit();
         }
